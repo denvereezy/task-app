@@ -3,7 +3,7 @@
 <div class="container-fluid">
   <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
 
-
+  <div class="panel-body">
     <h1>Edit Task</h1>
 
     <form action="/task/{{$task->id}}" method="POST">
@@ -19,6 +19,7 @@
         <a class="btn btn-primary" href="/tasks">Back To Tasks</a>
       </div>
     </form>
+  </div>
   </div>
 </div>
 @endsection
