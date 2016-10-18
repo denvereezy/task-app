@@ -12,6 +12,7 @@
 */
 
 Route::get('/', function () {
+  $user->notify();
     return view('welcome');
 });
 
@@ -23,3 +24,7 @@ Route::post('/task', 'TaskController@store');
 Route::delete('/task/{task}', 'TaskController@destroy');
 Route::get('/task/{task}/edit', 'TaskController@edit');
 Route::patch('/task/{task}', 'TaskController@update');
+
+//emails
+Route::patch('/email/send/{task}', 'MailController@send_mail');
+Route::get('/{task}/to', 'MailController@select_receiver');
