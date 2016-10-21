@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Mail;
 use App\Task;
 
@@ -13,14 +11,13 @@ class MailController extends Controller
     //function sending mail
     public function send_mail(Request $request, Task $task)
     {
-      $email = $request->input('email');
-      $subject = $request->input('subject');
-      $data=['name'=>'Denver'];                                           //inject variable into the scope of the closure
-      Mail::raw('This is your new task: '.$task->name, function($message) use($email, $subject)
-      {
-        $message->to($email)
+        $email = $request->input('email');
+        $subject = $request->input('subject');
+        $data = ['name' => 'Task App'];                                           //inject variable into the scope of the closure
+      Mail::raw('This is your new task: '.$task->name, function ($message) use ($email, $subject) {
+          $message->to($email)
                 ->subject($subject);
-        $message->from('denverdaniels52@gmail.com','Denver');
+          $message->from('denverdaniels52@gmail.com', 'Task App');
       });
       // echo 'fyfhh '.$email;
       return redirect('/tasks?Email was sent');
@@ -39,6 +36,6 @@ class MailController extends Controller
     // }
     public function select_receiver(Task $task)
     {
-      return view('mail', compact('task'));
+        return view('mail', compact('task'));
     }
 }
