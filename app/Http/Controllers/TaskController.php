@@ -3,16 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Task;
-use App\Http\Requests;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Repositories\TaskRepository;
 
 class TaskController extends Controller
 {
-
     protected $tasks;
-
 
     public function __construct(TaskRepository $tasks)
     {
@@ -22,7 +18,8 @@ class TaskController extends Controller
     }
     public function index(Request $request)
     {
-        $tasks = $request->user()->tasks()->get();
+        $tasks = $request->user()->tasks()->orderBy('created_at', 'desc')->get();
+
         return view('index', [
             'tasks' => $tasks,
         ]);
@@ -30,47 +27,42 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-      $this->validate($request, [
-      'name'  =>  'required|max:225',
+        $this->validate($request, [
+      'name' => 'required|max:225',
     ]);
 
-    $request->user()->tasks()->create([
-      'name'  =>  $request->name,
+        $request->user()->tasks()->create([
+      'name' => $request->name,
 
     ]);
 
-    return redirect('/tasks');
-  }
+        return redirect('/tasks');
+    }
 
-
-
-
-   /**
-    * Display a list of all of the user's task.
-    *
-    * @param  Request  $request
-    * @return Response
-    */
+    /**
+     * Display a list of all of the user's task.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function destroy(Request $request, Task $task)
     {
         $this->authorize('destroy', $task);
-
-
         $task->delete();
-
 
         return redirect('/tasks');
     }
 
     public function edit(Task $task)
     {
-      return view('edit', compact('task'));
+        return view('edit', compact('task'));
     }
 
     public function update(Request $request, Task $task)
     {
-      $task->update($request->all());
+        $task->update($request->all());
 
-      return redirect('/tasks');
+        return redirect('/tasks');
     }
 }
