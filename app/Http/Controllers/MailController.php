@@ -16,7 +16,7 @@ class MailController extends Controller
         $data = ['name' => 'Task App'];                                           //inject variable into the scope of the closure
       Mail::raw('This is your new task: '.$task->name, function ($message) use ($email, $subject) {
           $message->to($email)
-                ->subject($subject);
+                  ->subject($subject);
           $message->from('denverdaniels52@gmail.com', 'Task App');
       });
       // echo 'fyfhh '.$email;
