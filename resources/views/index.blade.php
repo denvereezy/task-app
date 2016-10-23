@@ -1,5 +1,3 @@
-<!-- resources/views/tasks/index.blade.php -->
-
 @extends('layouts.app') @section('content')
 
 <!-- Bootstrap Boilerplate... -->
@@ -45,6 +43,7 @@
                     <!-- Table Headings -->
                     <thead>
                         <th>Task</th>
+                        <th>Created at</th>
                         <th>&nbsp;</th>
                     </thead>
 
@@ -57,25 +56,27 @@
                             <td class="table-text">
                                 <div>{{ $task->name }}</div>
                             </td>
-
-
-                            <!-- Delete Button -->
+                            <td class="table-text">
+                                <div>{{ $task->created_at }}</div>
+                            </td>
                             <td>
-                                <form action="{{ url('task/'.$task->id) }}" method="POST">
+                                <form action="{{ url('task/'.$task->id) }}" id="del" method="POST">
+                                    <a href="{{ url('task/'.$task->id.'/edit') }}" class="btn btn-info btn-md">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                                    </a>
                                     {{ csrf_field() }} {{ method_field('DELETE') }}
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <a href="{{ url('task/'.$task->id.'/edit') }}" class="btn btn-info btn-md">Edit </a>
-                                    <button type="submit" id="delete-task-{{ $task->id }}" class="btn btn-danger">
-                                      <i class="fa fa-btn fa-trash"></i>Delete
+                                    <button type="submit" class="btn btn-danger" id="delete-task-{{ $task->id }}">
+                                            <i class="fa fa-btn fa-trash"></i> Delete
                                     </button>
-                                    <a href="{{ url($task->id.'/to' ) }}" class="btn btn-success btn-md">Email </a>
+                                    <a href="{{ url($task->id.'/to' ) }}" class="btn btn-success btn-md"><i class="fa fa-envelope-o" aria-hidden="true"></i> Email </a>
                                 </form>
                             </td>
                         </tr>
-                        @endforeach
                     </tbody>
-                </table>
+                    @endforeach
             </div>
+            </table>
         </div>
     </div>
 </div>
