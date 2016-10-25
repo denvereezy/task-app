@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Task App</title>
-
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -57,10 +57,15 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->name }} <img src="{{ Auth::user()->image }}" alt="avatar" style="height:20px; width:20px;"/><span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                  <li>
+                                      <a href="{{ url('profile') }}">
+                                          Profile
+                                      </a>
+                                  </li>
                                   <li>
                                       <a href="{{ url('/tasks') }}">
                                           Tasks
