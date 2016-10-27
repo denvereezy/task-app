@@ -12,7 +12,6 @@
 */
 
 Route::get('/', function () {
-  $user->notify();
     return view('welcome');
 });
 
@@ -28,3 +27,10 @@ Route::patch('/task/{task}', 'TaskController@update');
 //emails
 Route::patch('/email/send/{task}', 'MailController@send_mail');
 Route::get('/{task}/to', 'MailController@select_receiver');
+
+//users
+Route::get('/users', 'UserController@index');
+Route::delete('/user/{user}', 'UserController@destroy');
+Route::get('/profile', 'UserController@profile');
+Route::get('/profile/edit/{user}', 'UserController@editUserProfile');
+Route::patch('/profile/update/{user}', 'UserController@update');
